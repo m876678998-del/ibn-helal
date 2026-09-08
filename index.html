@@ -1,186 +1,94 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>متجر ابن هلال</title>
-<style>
-*{box-sizing:border-box; margin:0; padding:0}
-body{background:#f5f5f5; font-family:'Segoe UI', Arial; margin:0}
-header{background:#1a1a1a; color:#fff; text-align:center; padding:20px 15px}
-header img{height:70px; margin-bottom:10px}
-.offer{background:#ff4757; color:#fff; text-align:center; padding:12px; font-weight:bold; font-size:16px}
-
-.container{display:flex; gap:20px; max-width:1300px; margin:auto; padding:20px}
-#products{flex:1; display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px}
-.product{background:#fff; padding:15px; border-radius:10px; text-align:center; box-shadow:0 2px 8px #ddd; transition:0.3s}
-.product:hover{transform:translateY(-5px)}
-.product img{width:100%; height:220px; object-fit:contain}
-.product h3{margin:10px 0; font-size:16px; color:#333}
-.product p{color:#e63946; font-weight:bold; font-size:20px}
-.product button{background:#28a745; color:#fff; border:0; padding:12px; width:100%; border-radius:8px; cursor:pointer; font-weight:bold; font-size:15px}
-.product button:hover{background:#218838}
-
-#cart{background:#fff; padding:20px; width:320px; border-radius:10px; box-shadow:0 0 10px #ddd; height:fit-content; position:sticky; top:20px}
-#cart h3{margin-top:0; text-align:center; margin-bottom:15px}
-#cartItems{max-height:300px; overflow-y:auto; margin:10px 0}
-#cartItems div{border-bottom:1px solid #eee; padding:10px 0; display:flex; justify-content:space-between; align-items:center; font-size:14px}
-.delBtn{background:#dc3545; color:#fff; border:0; border-radius:50%; width:25px; height:25px; cursor:pointer; font-weight:bold}
-
-.coupon{margin:15px 0; display:flex; gap:5px}
-.coupon input{flex:1; padding:10px; border:1px solid #ccc; border-radius:5px}
-.coupon button{background:#007bff; color:#fff; border:0; padding:10px 12px; border-radius:5px; cursor:pointer; font-weight:bold}
-
-footer{background:#1a1a1a; color:#fff; text-align:center; padding:30px 15px; margin-top:40px}
-footer h4{margin-bottom:10px; color:#ff4757}
-footer p{margin:5px 0; font-size:15px}
-.whatsBtn{background:#25D366; color:#fff; width:100%; padding:14px; border:0; border-radius:8px; font-weight:bold; cursor:pointer; font-size:16px}
-.whatsBtn:hover{background:#20ba5a}
-
-/* للموبايل */
-@media(max-width:900px){
-.container{flex-direction:column; padding:10px}
-  #cart{width:100%; position:static; order:-1}
-  #products{grid-template-columns: repeat(auto-fit, minmax(160px, 1fr))}
-.product img{height:180px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ابن هلال للمنظفات والمعطرات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background: #f5f5f5; margin: 0; }
+        header { background: linear-gradient(135deg, #2c5530, #27ae60); color: white; padding: 30px 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 28px; }
+       .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+       .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+       .product { background: white; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+       .product:hover { transform: translateY(-5px); }
+       .product img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
+       .product h3 { color: #2c5530; margin: 12px 0; font-size: 16px; }
+       .product p { font-size: 22px; font-weight: bold; color: #e74c3c; margin: 10px 0; }
+       .product button { background: #27ae60; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
+       .product button:hover { background: #219150; }
+       .cart { position: fixed; top: 20px; left: 20px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 3px 15px rgba(0,0,0,0.2); z-index: 1000; }
+        #cart-count { background: red; color: white; border-radius: 50%; padding: 3px 9px; font-weight: bold; }
+       .cart button { background: #25D366; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; }
+       .loading { text-align: center; font-size: 20px; padding: 50px; }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>🏪 ابن هلال للمنظفات والمعطرات</h1>
+        <p>الجودة اللي تستاهلها - التوصيل لكل مكان</p>
+    </header>
 
-<header>
-    <img src="https://i.postimg.cc/bD94KrRQ/Whats-App-Image-2026-09-06-at-8-04-14-PM.jpg">
-    <h1>متجر ابن هلال</h1>
-    <p>منتجات تنظيف ومعطرات بجودة عالية</p>
-</header>
+    <div class="cart">
+        🛒 السلة: <span id="cart-count">0</span>
+        <button onclick="sendOrder()">اطلب عبر واتساب</button>
+    </div>
 
-<div class="offer">🔥 خصم 15% بكود SALE15 🔥</div>
-
-<div class="container">
-    <div id="products">
-        <div class="product">
-            <img src="https://i.postimg.cc/1ffYKJbZ/Whats-App-Image-2026-09-07-at-2-20-42-AM.jpg">
-            <h3>معطر جو خوخ 460 ملي</h3>
-            <p>50 ج</p>
-            <button onclick="addToCart('معطر جو خوخ 460 ملي', 50)">اضف للسلة</button>
-        </div>
-        <div class="product">
-            <img src="https://i.postimg.cc/XGktTqgK/Whats-App-Image-2026-09-07-at-2-20-42-AM-(1).jpg">
-            <h3>معطر عود ملكي 460 ملي</h3>
-            <p>50 ج</p>
-            <button onclick="addToCart('معطر عود ملكي 460 ملي', 50)">اضف للسلة</button>
-        </div>
-        <div class="product">
-            <img src="https://i.postimg.cc/1ffYKJbZ/Whats-App-Image-2026-09-07-at-2-20-42-AM.jpg">
-            <h3>صابون اطباق ليمون 750ML</h3>
-            <p>30 ج</p>
-            <button onclick="addToCart('صابون اطباق ليمون 750ML', 30)">اضف للسلة</button>
-        </div>
-        <div class="product">
-            <img src="https://i.postimg.cc/dkjgz39Z/Whats-App-Image-2026-09-07-at-2-20-43-AM.jpg">
-            <h3>منعم ومعطر اقمشة 1 لتر</h3>
-            <p>40 ج</p>
-            <button onclick="addToCart('منعم ومعطر اقمشة 1 لتر', 40)">اضف للسلة</button>
-        </div>
-        <div class="product">
-            <img src="https://i.postimg.cc/MXsFRh3W/Whats-App-Image-2026-09-07-at-2-20-42-AM-(2).jpg">
-            <h3>سائل غسيل ملابس 4 لتر</h3>
-            <p>70 ج</p>
-            <button onclick="addToCart('سائل غسيل ملابس 4 لتر', 70)">اضف للسلة</button>
+    <div class="container">
+        <div id="products" class="products">
+            <div class="loading">جاري تحميل المنتجات...</div>
         </div>
     </div>
 
-    <div id="cart">
-    <h3>السلة 🛒 <span id="count">0</span></h3>
-    <div id="cartItems">السلة فاضية</div>
-    <p style="font-weight:bold; text-align:center; font-size:18px;">الاجمالي: <span id="total">0</span> جنيه</p>
+    <script>
+        let cart = [];
+        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?output=csv";
 
-    <div class="coupon">
-        <input type="text" id="couponCode" placeholder="كود الخصم">
-        <button onclick="applyCoupon()">تطبيق</button>
-    </div>
-    <p id="discountMsg" style="color:green; text-align:center; font-size:14px"></p>
+        // قراءة المنتجات من جوجل شيت
+        fetch(CSV_URL)
+       .then(res => res.text())
+       .then(data => {
+            const rows = data.split('\n').slice(1); // نشيل اول سطر العناوين
+            let html = '';
+            rows.forEach(row => {
+                if(row.trim() === '') return;
+                const cols = row.split(',');
+                const name = cols[0];
+                const price = cols[1];
+                const image = cols[2];
+                if(name && price && image) {
+                    html += `
+                    <div class="product">
+                        <img src="${image}" onerror="this.src='https://via.placeholder.com/250'">
+                        <h3>${name}</h3>
+                        <p>${price} ج</p>
+                        <button onclick="addToCart('${name}', ${price})">اضف للسلة</button>
+                    </div>`;
+                }
+            });
+            document.getElementById('products').innerHTML = html || '<p>لا توجد منتجات</p>';
+        }).catch(err => {
+            document.getElementById('products').innerHTML = '<p>حدث خطأ في تحميل المنتجات</p>';
+        });
 
-    <button class="whatsBtn" onclick="sendWhatsApp()">اتمام الطلب واتساب</button>
-    </div>
-</div>
-
-<footer>
-    <h4>متجر ابن هلال</h4>
-    <p>📞 للتواصل: 01120431784</p>
-    <p>📍 الفيوم - مصر</p>
-    <p>🕐 مواعيد العمل: من 9 صباحاً لـ 10 مساءً</p>
-</footer>
-
-<script>
-var cart = [];
-var discount = 0;
-
-function addToCart(name, price){
-    var found = false;
-    for(var i=0; i<cart.length; i++){
-        if(cart[i].name == name){
-            cart[i].qty++;
-            found = true;
+        function addToCart(name, price) {
+            cart.push({name, price});
+            document.getElementById('cart-count').innerText = cart.length;
+            alert('✅ تم اضافة ' + name + ' للسلة');
         }
-    }
-    if(!found){
-        cart.push({name:name, price:price, qty:1});
-    }
-    showCart();
-}
 
-function removeFromCart(index){
-    cart.splice(index,1);
-    showCart();
-}
-
-function showCart(){
-    var count = 0;
-    var total = 0;
-    var html = "";
-    for(var i=0; i<cart.length; i++){
-        count += cart[i].qty;
-        total += cart[i].price * cart[i].qty;
-        html += "<div><span>"+cart[i].name+" x"+cart[i].qty+"</span> <span><b>"+(cart[i].price*cart[i].qty)+"ج</b> <button class='delBtn' onclick='removeFromCart("+i+")'>x</button></span></div>";
-    }
-    var finalTotal = total - (total * discount);
-    document.getElementById("count").innerText = count;
-    document.getElementById("total").innerText = finalTotal.toFixed(0);
-    document.getElementById("cartItems").innerHTML = html || "السلة فاضية";
-}
-
-function applyCoupon(){
-    var code = document.getElementById("couponCode").value.toUpperCase();
-    if(code == "SALE15"){
-        discount = 0.15;
-        document.getElementById("discountMsg").innerText = "تم تطبيق خصم 15%";
-        showCart();
-    }else{
-        discount = 0;
-        document.getElementById("discountMsg").innerText = "الكود غير صحيح";
-        showCart();
-    }
-}
-
-function sendWhatsApp(){
-    if(cart.length == 0){ alert("السلة فاضية"); return; }
-    var name = prompt("اكتب اسمك:");
-    if(!name) return;
-    var phone = prompt("اكتب رقمك:");
-    if(!phone) return;
-    var address = prompt("اكتب عنوانك:");
-    if(!address) return;
-    var total = document.getElementById("total").innerText;
-    var products = "";
-    for(var i=0; i<cart.length; i++){
-        products += cart[i].name + " x" + cart[i].qty + "%0A";
-    }
-    var message = "طلب جديد من ابن هلال%0Aالاسم: "+name+"%0Aالرقم: "+phone+"%0Aالعنوان: "+address+"%0A%0Aالمنتجات:%0A"+products+"%0Aالاجمالي بعد الخصم: "+total+" جنيه";
-    var url = "https://api.whatsapp.com/send?phone=201120431784&text=" + message;
-    window.location.href = url;
-    setTimeout(function(){cart = []; discount=0; document.getElementById("discountMsg").innerText=""; showCart();}, 1000);
-}
-</script>
-
+        function sendOrder() {
+            if(cart.length === 0) { alert('السلة فاضية'); return; }
+            let message = 'طلب جديد من موقع ابن هلال:%0A%0A';
+            let total = 0;
+            cart.forEach(item => {
+                message += `• ${item.name}: ${item.price} ج%0A`;
+                total += Number(item.price);
+            });
+            message += `%0Aالاجمالي: ${total} ج%0A%0Aالاسم: %0Aالعنوان: %0Aرقم التليفون:`;
+            window.open(`https://wa.me/201120431784?text=${message}`, '_blank');
+        }
+    </script>
 </body>
 </html>
