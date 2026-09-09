@@ -1,133 +1,71 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ابن هلال للمنظفات والمعطرات</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Cairo', sans-serif; background: #f5f5f5; margin: 0; }
-        header { background: linear-gradient(135deg, #1b3d1f, #27ae60); color: white; padding: 40px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        header h1 { margin: 0; font-size: 36px; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        header p { margin: 10px 0 0 0; font-size: 18px; opacity: 0.95; }
-
-       .search-box { max-width: 600px; margin: 20px auto; padding: 0 20px; }
-       .search-box input { width: 100%; padding: 15px; font-size: 18px; border: 2px solid #27ae60; border-radius: 10px; box-sizing: border-box; font-family: 'Cairo'; }
-
-     .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
-     .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-     .product { background: white; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: 0.3s; }
-     .product:hover { transform: translateY(-5px); }
-     .product img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
-     .product h3 { color: #2c5530; margin: 12px 0; font-size: 16px; }
-     .product p { font-size: 22px; font-weight: bold; color: #e74c3c; margin: 10px 0; }
-     .product button { background: #27ae60; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
-
-     .cart { position: fixed; top: 20px; left: 20px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 3px 15px rgba(0,0,0,0.2); z-index: 1000; width: 280px; }
-        #cart-count { background: red; color: white; border-radius: 50%; padding: 3px 9px; font-weight: bold; }
-     .cart input { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-     .cart button { background: #25D366; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; font-size: 16px; }
-     .loading { text-align: center; font-size: 20px; padding: 50px; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ابن هلال للمنظفات والمعطرات</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Cairo';background:#f5f5f5;margin:0}
+header{background:linear-gradient(135deg,#1b3d1f,#27ae60);color:white;padding:40px 20px;text-align:center}
+header h1{margin:0;font-size:32px}
+.filters{text-align:center;margin:20px}
+.filters button{background:white;border:2px solid #27ae60;color:#27ae60;padding:10px 25px;margin:5px;border-radius:25px;cursor:pointer;font-family:'Cairo';font-weight:bold;font-size:16px}
+.filters button.active,.filters button:hover{background:#27ae60;color:white}
+.search-box{max-width:600px;margin:20px auto;padding:0 20px}
+.search-box input{width:100%;padding:15px;border:2px solid #27ae60;border-radius:10px;font-family:'Cairo';font-size:18px}
+.container{max-width:1200px;margin:20px auto;padding:20px}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.product{background:white;border-radius:12px;padding:15px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,0.1)}
+.product img{width:100%;height:220px;object-fit:cover;border-radius:8px}
+.product h3{color:#2c5530;margin:12px 0;font-size:16px}
+.product p{font-size:22px;font-weight:bold;color:#e74c3c}
+.product button{background:#27ae60;color:white;border:none;padding:12px;border-radius:8px;cursor:pointer;width:100%;font-weight:bold;font-size:16px}
+.cart{position:fixed;top:20px;left:20px;background:white;padding:15px;border-radius:10px;box-shadow:0 3px 15px rgba(0,0,0,0.2);width:280px}
+.cart input{width:100%;padding:8px;margin:5px 0;border:1px solid #ddd;border-radius:5px}
+.cart button{background:#25D366;color:white;border:none;padding:12px;border-radius:8px;width:100%;font-weight:bold}
+.loading{text-align:center;font-size:20px;padding:50px}
+</style>
 </head>
 <body>
-    <header>
-        <h1>🏪 ابن هلال للمنظفات والمعطرات</h1>
-        <p>الجودة اللي تستاهلها - التوصيل لكل مكان</p>
-    </header>
+<header><h1>🏪 ابن هلال للمنظفات والمعطرات</h1><p>الجودة اللي تستاهلها - التوصيل لكل مكان</p></header>
+<div class="filters" id="filters"></div>
+<div class="search-box"><input type="text" id="searchInput" placeholder="🔍 ابحث عن منتج..."></div>
+<div class="cart">🛒 السلة: <span id="cart-count">0</span>
+<h4>بيانات التوصيل</h4>
+<input type="text" id="name" placeholder="الاسم">
+<input type="text" id="phone" placeholder="رقم التليفون">
+<input type="text" id="address" placeholder="العنوان">
+<button onclick="sendOrder()">اطلب عبر واتساب</button></div>
+<div class="container"><div id="products" class="products"><div class="loading">جاري تحميل المنتجات...</div></div></div>
 
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="🔍 ابحث عن منتج...">
-    </div>
+<script>
+let cart=[],allProducts=[],currentCategory='all';
+const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?output=csv";
 
-    <div class="cart">
-        🛒 السلة: <span id="cart-count">0</span>
-        <h4>بيانات التوصيل</h4>
-        <input type="text" id="name" placeholder="الاسم">
-        <input type="text" id="phone" placeholder="رقم التليفون">
-        <input type="text" id="address" placeholder="العنوان">
-        <button onclick="sendOrder()">اطلب عبر واتساب</button>
-    </div>
+function loadProducts(){
+fetch(CSV_URL).then(r=>r.text()).then(data=>{
+const rows=data.split('\n').slice(1);
+allProducts=rows.map(row=>{const[product,price,image,category]=row.split(',');return{product,price,image,category}}).filter(p=>p.product);
+setupFilters();displayProducts();
+}).catch(e=>document.getElementById('products').innerHTML='في مشكلة في تحميل المنتجات')}
 
-    <div class="container">
-        <div id="products" class="products">
-            <div class="loading">جاري تحميل المنتجات...</div>
-        </div>
-    </div>
+function setupFilters(){
+const categories=['all',...new Set(allProducts.map(p=>p.category).filter(Boolean))];
+document.getElementById('filters').innerHTML=categories.map(cat=>`<button class="${cat==='all'?'active':''}" onclick="filterCategory('${cat}')">${cat==='all'?'الكل':cat}</button>`).join('');
+}
 
-    <script>
-        let cart = [];
-        let allProducts = []; // هنخزن كل المنتجات هنا
-        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?output=csv";
-let cart = [];
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?output=csv";
+function filterCategory(cat){currentCategory=cat;document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));event.target.classList.add('active');displayProducts();}
 
-// قراءة المنتجات من جوجل شيت
-        fetch(CSV_URL)
-     .then(res => res.text())
-     .then(data => {
-            const rows = data.split('\n').slice(1);
-            allProducts = [];
-            rows.forEach(row => {
-                if(row.trim() === '') return;
-                const cols = row.split(',');
-                const name = cols[0];
-                const price = cols[1];
-                const image = cols[2];
-                if(name && price && image) {
-                    allProducts.push({name, price, image});
-                }
-            });
-            displayProducts(allProducts);
-        });
+function displayProducts(){
+const search=document.getElementById('searchInput').value.toLowerCase();
+const filtered=allProducts.filter(p=>(currentCategory==='all'||p.category===currentCategory)&&p.product.toLowerCase().includes(search));
+document.getElementById('products').innerHTML=filtered.map(p=>`<div class="product"><img src="${p.image}" onerror="this.src='https://via.placeholder.com/220'"><h3>${p.product}</h3><p>${p.price} ج</p><button onclick="addToCart('${p.product}',${p.price})">اضف للسلة</button></div>`).join('');
+}
 
-        function displayProducts(products) {
-            let html = '';
-            products.forEach(p => {
-                html += `
-                <div class="product">
-                    <img src="${p.image}" onerror="this.src='https://via.placeholder.com/250'">
-                    <h3>${p.name}</h3>
-                    <p>${p.price} ج</p>
-                    <button onclick="addToCart('${p.name}', ${p.price})">اضف للسلة</button>
-                </div>`;
-            });
-            document.getElementById('products').innerHTML = html || '<p>لا توجد نتائج</p>';
-        }
-
-        // ميزة البحث
-        document.getElementById('searchInput').addEventListener('keyup', function() {
-            const searchTerm = this.value.toLowerCase();
-            const filtered = allProducts.filter(p => p.name.toLowerCase().includes(searchTerm));
-            displayProducts(filtered);
-        });
-
-        function addToCart(name, price) {
-            cart.push({name, price});
-            document.getElementById('cart-count').innerText = cart.length;
-            alert('✅ تم اضافة ' + name + ' للسلة');
-        }
-
-        function sendOrder() {
-            if(cart.length === 0) { alert('السلة فاضية'); return; }
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-            if(!name ||!phone ||!address) { alert('من فضلك املأ بيانات التوصيل'); return; }
-
-            let message = `طلب جديد من موقع ابن هلال:%0A%0A`;
-            message += `الاسم: ${name}%0A`;
-            message += `التليفون: ${phone}%0A`;
-            message += `العنوان: ${address}%0A%0A`;
-            message += `المنتجات:%0A`;
-            let total = 0;
-            cart.forEach(item => {
-                message += `• ${item.name}: ${item.price} ج%0A`;
-                total += Number(item.price);
-            });
-            message += `%0Aالاجمالي: ${total} ج`;
-            window.open(`https://wa.me/201120431784?text=${message}`, '_blank');
-        }
-    </script>
+function addToCart(product,price){cart.push({product,price});document.getElementById('cart-count').innerText=cart.length;}
+function sendOrder(){const name=document.getElementById('name').value;const phone=document.getElementById('phone').value;const address=document.getElementById('address').value;if(!name||!phone||!address)return alert('كمل البيانات');let msg=`طلب جديد من ${name}%0A`;cart.forEach(i=>msg+=`${i.product} - ${i.price}ج%0A`);window.open(`https://wa.me/201120431784?text=${msg}`);}
+document.getElementById('searchInput').addEventListener('input',displayProducts);
+loadProducts();
+</script>
 </body>
 </html>
