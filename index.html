@@ -59,7 +59,10 @@
         let cart = [];
         let allProducts = []; // هنخزن كل المنتجات هنا
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?output=csv";
+let cart = [];
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?output=csv";
 
+// قراءة المنتجات من جوجل شيت
         fetch(CSV_URL)
      .then(res => res.text())
      .then(data => {
