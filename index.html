@@ -10,20 +10,24 @@
         header { background: linear-gradient(135deg, #1b3d1f, #27ae60); color: white; padding: 40px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         header h1 { margin: 0; font-size: 36px; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         header p { margin: 10px 0 0 0; font-size: 18px; opacity: 0.95; }
-      .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
-      .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-      .product { background: white; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: 0.3s; }
-      .product:hover { transform: translateY(-5px); }
-      .product img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
-      .product h3 { color: #2c5530; margin: 12px 0; font-size: 16px; }
-      .product p { font-size: 22px; font-weight: bold; color: #e74c3c; margin: 10px 0; }
-      .product button { background: #27ae60; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
 
-      .cart { position: fixed; top: 20px; left: 20px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 3px 15px rgba(0,0,0,0.2); z-index: 1000; width: 280px; }
+       .search-box { max-width: 600px; margin: 20px auto; padding: 0 20px; }
+       .search-box input { width: 100%; padding: 15px; font-size: 18px; border: 2px solid #27ae60; border-radius: 10px; box-sizing: border-box; font-family: 'Cairo'; }
+
+     .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+     .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+     .product { background: white; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+     .product:hover { transform: translateY(-5px); }
+     .product img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
+     .product h3 { color: #2c5530; margin: 12px 0; font-size: 16px; }
+     .product p { font-size: 22px; font-weight: bold; color: #e74c3c; margin: 10px 0; }
+     .product button { background: #27ae60; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
+
+     .cart { position: fixed; top: 20px; left: 20px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 3px 15px rgba(0,0,0,0.2); z-index: 1000; width: 280px; }
         #cart-count { background: red; color: white; border-radius: 50%; padding: 3px 9px; font-weight: bold; }
-      .cart input { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-      .cart button { background: #25D366; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; font-size: 16px; }
-      .loading { text-align: center; font-size: 20px; padding: 50px; }
+     .cart input { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+     .cart button { background: #25D366; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; font-size: 16px; }
+     .loading { text-align: center; font-size: 20px; padding: 50px; }
     </style>
 </head>
 <body>
@@ -31,6 +35,10 @@
         <h1>🏪 ابن هلال للمنظفات والمعطرات</h1>
         <p>الجودة اللي تستاهلها - التوصيل لكل مكان</p>
     </header>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 ابحث عن منتج...">
+    </div>
 
     <div class="cart">
         🛒 السلة: <span id="cart-count">0</span>
@@ -49,13 +57,14 @@
 
     <script>
         let cart = [];
+        let allProducts = []; // هنخزن كل المنتجات هنا
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?output=csv";
 
         fetch(CSV_URL)
-      .then(res => res.text())
-      .then(data => {
+     .then(res => res.text())
+     .then(data => {
             const rows = data.split('\n').slice(1);
-            let html = '';
+            allProducts = [];
             rows.forEach(row => {
                 if(row.trim() === '') return;
                 const cols = row.split(',');
@@ -63,16 +72,31 @@
                 const price = cols[1];
                 const image = cols[2];
                 if(name && price && image) {
-                    html += `
-                    <div class="product">
-                        <img src="${image}" onerror="this.src='https://via.placeholder.com/250'">
-                        <h3>${name}</h3>
-                        <p>${price} ج</p>
-                        <button onclick="addToCart('${name}', ${price})">اضف للسلة</button>
-                    </div>`;
+                    allProducts.push({name, price, image});
                 }
             });
-            document.getElementById('products').innerHTML = html || '<p>لا توجد منتجات</p>';
+            displayProducts(allProducts);
+        });
+
+        function displayProducts(products) {
+            let html = '';
+            products.forEach(p => {
+                html += `
+                <div class="product">
+                    <img src="${p.image}" onerror="this.src='https://via.placeholder.com/250'">
+                    <h3>${p.name}</h3>
+                    <p>${p.price} ج</p>
+                    <button onclick="addToCart('${p.name}', ${p.price})">اضف للسلة</button>
+                </div>`;
+            });
+            document.getElementById('products').innerHTML = html || '<p>لا توجد نتائج</p>';
+        }
+
+        // ميزة البحث
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filtered = allProducts.filter(p => p.name.toLowerCase().includes(searchTerm));
+            displayProducts(filtered);
         });
 
         function addToCart(name, price) {
@@ -83,11 +107,9 @@
 
         function sendOrder() {
             if(cart.length === 0) { alert('السلة فاضية'); return; }
-
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
-
             if(!name ||!phone ||!address) { alert('من فضلك املأ بيانات التوصيل'); return; }
 
             let message = `طلب جديد من موقع ابن هلال:%0A%0A`;
