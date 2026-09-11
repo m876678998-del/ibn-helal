@@ -7,8 +7,6 @@
 <style>
 * {box-sizing: border-box; margin: 0; padding: 0;}
 body{font-family:tahoma;background:#f8f9fa;margin:0;padding:0;color:#333}
-.offer-bar{background:#ffcc00; color:#000; text-align:center; padding:15px; font-size:20px; font-weight:bold; animation: blink 1.5s infinite;}
-@keyframes blink {50% {opacity: 0.5;}}
 header{background:linear-gradient(135deg,#27ae60,#2ecc71);color:white;text-align:center;padding:30px 20px}
 .logo-box{background:#27ae60; padding:12px; border-radius:50%; display:inline-block; margin-bottom:15px; box-shadow:0 0 0 4px gold;}
 .logo-box img{width:100px;height:100px;border-radius:50%;background:white;display:block;object-fit:contain;}
@@ -26,20 +24,21 @@ h2{text-align:center; color:#27ae60; margin-bottom:20px; font-size:28px}
 .card.price{font-size:22px; color:#e67e22; font-weight:bold; margin:10px 0}
 .card.category{font-size:14px; color:#999; margin-bottom:10px}
 .whatsapp-btn{display:inline-block; background:#25D366; color:white; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold}
-footer{background:#2c3e50;color:white;text-align:center;padding:25px;margin-top:30px}
+footer{background:#2c3e50;color:white;text-align:center;padding:20px;margin-top:30px}
 .loading{text-align:center; padding:50px; font-size:20px; color:#27ae60}
 </style>
 </head>
 <body>
-<div class="offer-bar">🔥 عروض الافتتاح - خصم 10% على اول اوردر 🔥</div>
-
 <header>
+  <div style="background:#ffcc00; color:#000; text-align:center; padding:15px; font-size:20px; font-weight:bold; animation: blink 1.5s infinite;">
+  🔥 عروض الافتتاح - خصم 10% على اول اوردر 🔥
+  </div>
+
   <div class="logo-box">
     <img src="https://raw.githubusercontent.com/m876678998-del/ibn-helal/main/%D9%84%D9%88%D8%AC%D9%88%20%D8%A7%D8%A8%D9%86%20%D9%87%D9%84%D8%A7%D9%84.jfif" alt="لوجو ابن هلال">
   </div>
   <h1>ابن هلال للمنظفات والمعطرات</h1>
 </header>
-
 <div class="container">
   <h2>منتجاتنا</h2>
   <div class="filters" id="filters"></div>
@@ -49,11 +48,8 @@ footer{background:#2c3e50;color:white;text-align:center;padding:25px;margin-top:
 </div>
 
 <footer>
-  <h3>تواصل معنا</h3>
-  <p>📍 العنوان: طبهار - الفيوم</p>
-  <p>📱 واتساب: 01120431784</p>
-  <p>⏰ المواعيد: من 9 الصبح لـ 11 بالليل</p>
-  <p style="margin-top:15px">© 2026 ابن هلال للمنظفات والمعطرات - جميع الحقوق محفوظة</p>
+  <p>للتواصل: 01120431784  | العنوان: طبهار - الفيوم</p>
+  <p>© 2026 ابن هلال جميع الحقوق محفوظة</p>
 </footer>
 
 <script>
@@ -87,7 +83,7 @@ function showCategories(){
   const categories = [...new Set(allProducts.map(p => p.category))].filter(c => c);
   let buttons = '<button class="active" onclick="filterProducts(\'all\', this)">الكل</button>';
   categories.forEach(cat => {
-    buttons += `<button onclick="filterProducts('${cat}', this)">${cat}</button>`;
+    buttons += <button onclick="filterProducts('${cat}', this)">${cat}</button>;
   });
   document.getElementById("filters").innerHTML = buttons;
 }
@@ -95,17 +91,16 @@ function showCategories(){
 function showProducts(products){
   let html = "";
   products.forEach(p => {
-    const whatsappMsg = `عايز اطلب ${p.name} بسعر ${p.price} جنيه`;
-    html += `
-    <div class="card">
-      <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
-      <h3>${p.name}</h3>
-      <p class="category">${p.category}</p>
-      <p class="price">${p.price} جنيه</p>
-      <a class="whatsapp-btn" href="https://wa.me/201120431784?text=${encodeURIComponent(whatsappMsg)}" target="_blank">اطلب عبر واتساب</a>
-    </div>
-    `;
-  });
+const whatsappMsg = عايز اطلب ${p.name} بسعر ${p.price} جنيه;
+html += `
+<div class="card">
+<img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
+<h3>${p.name}</h3>
+<p class="category">${p.category}</p>
+<p class="price">${p.price} جنيه</p>
+<a class="whatsapp-btn" href="https://wa.me/201120431784?text=${encodeURIComponent(whatsappMsg)}" target="_blank">اطلب عبر واتساب</a> 
+</div>
+`;
   document.getElementById("products").innerHTML = html || "<p>لا توجد منتجات</p>";
 }
 
@@ -121,5 +116,16 @@ function filterProducts(category, btn){
 
 loadProducts();
 </script>
+<footer style="background:#2c3e50; color:white; text-align:center; padding:25px; margin-top:40px">
+  <h3>تواصل معنا</h3>
+  <p>📍 العنوان: اطسا - الفيوم</p>
+  <p>📱 واتساب: 01120431784</p>
+  <p>⏰ المواعيد: من 9 الصبح لـ 11 بالليل</p>
+  <p style="margin-top:10px">
+   https://wa.me/201120431784?text=عايز اطلب ${product.name}
+    <a href="https://facebook.com" style="color:#1877F2; margin:0 10px; text-decoration:none">فيسبوك</a>
+  </p>
+  <p style="margin-top:15px">© 2026 ابن هلال للمنظفات والمعطرات - جميع الحقوق محفوظة</p>
+</footer>
 </body>
 </html>
