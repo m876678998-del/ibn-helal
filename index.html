@@ -91,16 +91,16 @@ function showCategories(){
 function showProducts(products){
   let html = "";
   products.forEach(p => {
-    const whatsappMsg = `عايز اطلب ${p.name} بسعر ${p.price} جنيه`;
-    html += `
-    <div class="card">
-      <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
-      <h3>${p.name}</h3>
-      <p class="category">${p.category}</p>
-      <p class="price">${p.price} جنيه</p>
-      <a class="whatsapp-btn" href="https://wa.me/2010xxxxxxx?text=${encodeURIComponent(whatsappMsg)}" target="_blank">اطلب عبر واتساب</a>
-    </div>`;
-  });
+const whatsappMsg = `عايز اطلب ${p.name} بسعر ${p.price} جنيه`;
+html += `
+<div class="card">
+<img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200'">
+<h3>${p.name}</h3>
+<p class="category">${p.category}</p>
+<p class="price">${p.price} جنيه</p>
+<a class="whatsapp-btn" href="https://wa.me/201120431784?text=${encodeURIComponent(whatsappMsg)}" target="_blank">اطلب عبر واتساب</a> 
+</div>
+`;
   document.getElementById("products").innerHTML = html || "<p>لا توجد منتجات</p>";
 }
 
@@ -122,7 +122,7 @@ loadProducts();
   <p>📱 واتساب: 01120431784</p>
   <p>⏰ المواعيد: من 9 الصبح لـ 11 بالليل</p>
   <p style="margin-top:10px">
-    <a href="https://wa.me/201120431784" style="color:#25D366; margin:0 10px; text-decoration:none">واتساب</a> | 
+   `https://wa.me/201120431784?text=عايز اطلب ${product.name}`
     <a href="https://facebook.com" style="color:#1877F2; margin:0 10px; text-decoration:none">فيسبوك</a>
   </p>
   <p style="margin-top:15px">© 2026 ابن هلال للمنظفات والمعطرات - جميع الحقوق محفوظة</p>
