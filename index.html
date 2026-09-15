@@ -5,6 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ابن هلال للمنظفات والمعطرات</title>
 <style>
+  .slide {
+  position: relative; /* لجعل النصوص تظهر فوق الصورة */
+}
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* تجعل الصورة متناسقة أوتوماتيكياً مع مقاس الشاشات */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.slide-content {
+  position: relative;
+  z-index: 2; /* ترفع النص ليكون فوق الصورة تماماً */
+  background: rgba(0, 0, 0, 0.4); /* خلفية سوداء خفيفة لتوضيح النص فوق الصورة */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 * {box-sizing: border-box; margin: 0; padding: 0;}
 body{font-family:tahoma;background:#f8f9fa;margin:0;padding:0;color:#333}
 header{background:linear-gradient(135deg,#27ae60,#2ecc71);color:white;text-align:center;padding:30px 20px; position:relative}
@@ -49,6 +72,40 @@ footer{background:#2c3e50;color:white;text-align:center;padding:25px;margin-top:
   </div>
   <h1>ابن هلال للمنظفات والمعطرات</h1>
 </header>
+<!-- قسم بانر العروض المتحرك بالصور -->
+<div class="slider-container">
+  <div class="slider" id="slider">
+    
+    <!-- البانر الأول (عرض المسحوق) -->
+    <div class="slide active">
+            <img src="https://i.postimg.cc/TY06HFG1/image-28073969.jpg" alt="عرض صابون سائل " class="slide-img">
+      <div class="slide-content">
+        <h2>🔥 أقوى عروض النظافة 🔥</h2>
+        <p>اشتري صابون سائل واحصل على خصم فوري عند الدفع!</p>
+      </div>
+    </div>
+    <!-- البانر الثاني (عرض المعطرات) -->
+    <div class="slide">
+          <img src="https://i.postimg.cc/kMyznSHp/image-73240bc9.jpg" alt="عرض المعطرات" class="slide-img">
+      <div class="slide-content">
+        <h2>🌸 معطرات جو برائحة تدوم 🌸</h2>
+        <p>تشكيلة واسعة من العود و التوت والخوخ لتعطير منزلك.</p>
+      </div>
+    </div>
+    
+    <!-- شراكه مع شراكات مصريه البانر الثالث (خصم الافتتاح) -->
+    <div class="slide">
+      <img src="https://i.postimg.cc/kg2pFpgY/image-361abb16.jpg" alt="خصم الافتتاح" class="slide-img">
+      <div class="slide-content">
+        <h2>✨ خصم 10% على أول أوردر ✨</h2>
+        <p>اطلب الآن عبر الواتساب واستفد من عروض الافتتاح.</p>
+      </div>
+    </div>
+  </div>
+  <!-- أزرار التنقل اليدوي -->
+  <button class="slider-btn prev" onclick="moveSlide(-1)">❯</button>
+  <button class="slider-btn next" onclick="moveSlide(1)">❮</button>
+</div>
 
 <div class="container">
   <h2>منتجاتنا</h2>
@@ -202,6 +259,31 @@ function saveCart() {
 
 // تشغيل جلب البيانات عند فتح الموقع
 loadProducts();
+// كود تحريك البانر تلقائياً وبأزرار التحكم
+let currentSlide = 0;
+const slides = document.getElementsByClassName("slide");
+
+function showSlide(index) {
+  if (index >= slides.length) { currentSlide = 0; }
+  else if (index < 0) { currentSlide = slides.length - 1; }
+  else { currentSlide = index; }
+
+  // إخفاء كل البانرات
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].classList.remove("active");
+  }
+  // إظهار البانر المطلوب فقط
+  slides[currentSlide].classList.add("active");
+}
+
+function moveSlide(num) {
+  showSlide(currentSlide + num);
+}
+
+// تحريك البانر تلقائياً كل 4 ثوانٍ
+setInterval(() => {
+  moveSlide(1);
+}, 4000);
 </script>
 </body>
 </html>
