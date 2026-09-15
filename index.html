@@ -95,14 +95,72 @@ h2{text-align:center; color:#27ae60; margin-bottom:20px; font-size:28px}
 .filters{text-align:center; margin-bottom:20px}
 .filters button{background:#27ae60; color:white; border:none; padding:10px 20px; margin:5px; border-radius:8px; cursor:pointer; font-size:16px; transition:0.3s}
 .filters button.active,.filters button:hover{background:#2c3e50}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.card{background:white;border-radius:12px;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,0.1);text-align:center; transition:0.3s;}
-.card:hover{transform: translateY(-5px);}
-.card img{width:100%;height:200px;object-fit:contain;border-radius:8px; background:#f1f1f1; margin-bottom:10px}
-.card h3{color:#27ae60;margin:10px 0; font-size:18px; min-height:50px}
-.card.price{font-size:22px; color:#e67e22; font-weight:bold; margin:10px 0}
-.card.category{font-size:14px; color:#999; margin-bottom:10px}
-.add-btn{display:inline-block; background:#27ae60; color:white; padding:10px 20px; border-radius:8px; border:none; cursor:pointer; font-weight:bold; width:100%}
+.products{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr); /* 4 كروت ثابتين في الصف زي الاول */
+  gap:20px;
+}
+
+@media (max-width: 992px) {
+  .products{ grid-template-columns:repeat(3, 1fr); } /* 3 في التابلت */
+}
+@media (max-width: 768px) {
+  .products{ grid-template-columns:repeat(2, 1fr); } /* 2 في الموبايل الكبير */
+}
+@media (max-width: 500px) {
+  .products{ grid-template-columns:repeat(1, 1fr); } /* 1 في الموبايل الصغير */
+}
+
+.card{
+  background:white;
+  border-radius:15px; /* خليتها اكبر شوية زي الصورة */
+  padding:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+  text-align:center;
+  transition:0.3s;
+  display:flex;
+  flex-direction:column;
+}
+.card:hover{transform: translateY(-5px); box-shadow:0 5px 15px rgba(0,0,0,0.15);}
+
+.card img{
+  width:100%;
+  height:200px;
+  object-fit: contain; /* عشان الصورة كلها تبان */
+  border-radius:10px;
+  background:#f5f5f5; /* الخلفية الرمادي الفاتح اللي في الصورة */
+  padding:10px; /* مسافة حوالين الصورة */
+  margin-bottom:10px
+}
+
+.card h3{
+  color:#27ae60;
+  margin:10px 0; 
+  font-size:17px; 
+  min-height:45px;
+}
+
+.card .category{font-size:13px; color:#999; margin-bottom:5px}
+.card .price{
+  font-size:20px; 
+  color:#e67e22; 
+  font-weight:bold; 
+  margin:8px 0
+}
+
+.add-btn{
+  display:block; 
+  background:#27ae60; 
+  color:white; 
+  padding:10px 20px; 
+  border-radius:8px; 
+  border:none; 
+  cursor:pointer; 
+  font-weight:bold; 
+  width:100%;
+  margin-top:auto;
+}
+.add-btn:hover{background:#219150}#27ae60; color:white; padding:10px 20px; border-radius:8px; border:none; cursor:pointer; font-weight:bold; width:100%}
 footer{background:#2c3e50;color:white;text-align:center;padding:25px;margin-top:30px}
 .loading{text-align:center; padding:50px; font-size:20px; color:#27ae60}
 
