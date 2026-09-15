@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ابن هلال للمنظفات والمعطرات</title>
 <style>
- .slider-container {position:relative; width:100%; height:350px; overflow:hidden; margin-bottom:20px;}
+ .slider-container {
+  position:relative; 
+  width:100%; 
+  height:auto; /* شيل 350px الثابت */
+  aspect-ratio: 16/5; /* نسبة العرض للارتفاع زي البانر */
+  overflow:hidden; 
+  margin-bottom:20px;
+}
  .slide {position: relative; width:100%; height:100%; display:none;}
  .slide.active {display:block;}
  .slide-img {width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1;}
