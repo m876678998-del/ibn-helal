@@ -226,35 +226,16 @@ footer{background:#2c3e50;color:white;text-align:center;padding:25px;margin-top:
   <div class="cart-total">الاجمالي: <span id="cart-total">0</span> جنيه</div>
   <button class="checkout-btn" onclick="checkout()">اطلب عبر واتساب</button>
 </div>
-
-footer{
-  background:#2c3e50; /* اللون الكحلي الغامق */
-  color:white;
-  text-align:center; /* توسيط كل حاجة */
-  padding:40px 20px; /* مسافة كبيرة فوق وتحت */
-  margin-top:30px;
-  font-size:16px;
-}
-
-footer h3{
-  font-size:24px;
-  margin-bottom:20px;
-  color:white; /* العنوان ابيض */
-  font-weight:bold;
-}
-
-footer p{
-  margin:10px 0; /* مسافة بين كل سطر */
-  line-height:1.8;
-}
-
-footer p:last-child{
-  margin-top:20px;
-  padding-top:15px;
-  border-top:1px solid rgba(255,255,255,0.1); /* خط فاصل رفيع فوق حقوق النشر */
-  font-size:14px;
-  opacity:0.8;
-}
+<!-- قسم الفوتر الصحيح والمصمم بشكل جذاب -->
+<footer style="background: #2c3e50; color: white; text-align: center; padding: 40px 20px; margin-top: 30px;">
+  <h3 style="font-size: 24px; margin-bottom: 20px; font-weight: bold;">تواصل معنا</h3>
+  <p style="margin: 10px 0; font-size: 16px;">📍 العنوان: اطسا - الفيوم</p>
+  <p style="margin: 10px 0; font-size: 16px;">📱 واتساب: 01120431784</p>
+  <p style="margin: 10px 0; font-size: 16px; line-height: 1.8;">⏰ المواعيد: من 9 الصبح لـ 11 بالليل</p>
+  <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 20px; padding-top: 15px; font-size: 14px; opacity: 0.8;">
+    © 2026 ابن هلال للمنظفات والمعطرات
+  </div>
+</footer>
 <script>
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?gid=1579048291&single=true&output=csv";
 let allProducts = [];
