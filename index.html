@@ -227,14 +227,34 @@ footer{background:#2c3e50;color:white;text-align:center;padding:25px;margin-top:
   <button class="checkout-btn" onclick="checkout()">اطلب عبر واتساب</button>
 </div>
 
-<footer>
-  <h3>تواصل معنا</h3>
-  <p>📍 العنوان: اطسا - الفيوم</p>
-  <p>📱 واتساب: 01120431784</p>
-  <p>⏰ المواعيد: من 9 الصبح لـ 11 بالليل</p>
-  <p style="margin-top:15px">© 2026 ابن هلال للمنظفات والمعطرات</p>
-</footer>
+footer{
+  background:#2c3e50; /* اللون الكحلي الغامق */
+  color:white;
+  text-align:center; /* توسيط كل حاجة */
+  padding:40px 20px; /* مسافة كبيرة فوق وتحت */
+  margin-top:30px;
+  font-size:16px;
+}
 
+footer h3{
+  font-size:24px;
+  margin-bottom:20px;
+  color:white; /* العنوان ابيض */
+  font-weight:bold;
+}
+
+footer p{
+  margin:10px 0; /* مسافة بين كل سطر */
+  line-height:1.8;
+}
+
+footer p:last-child{
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,0.1); /* خط فاصل رفيع فوق حقوق النشر */
+  font-size:14px;
+  opacity:0.8;
+}
 <script>
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSv7AAV_cVCseJEivgJi3ZKwCFPIa489jUtE5adrOuSBDMr9Kfn_gNJS9qSNfVhq-zv-KRnWOR0IiHf/pub?gid=1579048291&single=true&output=csv";
 let allProducts = [];
